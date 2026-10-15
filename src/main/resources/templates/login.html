@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoreo Botes Inteligentes - Login</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #d1d5db;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Contenedor principal estilo ventana */
+        .login-card {
+            display: flex;
+            width: 820px;
+            height: 500px;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Panel Izquierdo: Identidad y Colores SABES */
+        .panel-branding {
+            width: 46%;
+            background: linear-gradient(180deg, #001f35 0%, #002B49 45%, #004071 100%);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px 25px;
+            text-align: center;
+        }
+
+        .brand-header h1 {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .brand-header p {
+            font-size: 13px;
+            color: #FF7900;
+            margin-top: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Logo vectorial temático de reciclaje inteligente */
+        .brand-logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-logo {
+            width: 140px;
+            height: 140px;
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3));
+        }
+
+        .brand-footer {
+            width: 100%;
+            background: rgba(0, 90, 156, 0.45);
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .brand-footer span {
+            font-size: 13px;
+            color: #FF7900;
+            font-weight: bold;
+            letter-spacing: 0.8px;
+        }
+
+        /* Panel Derecho: Formulario */
+        .panel-form {
+            width: 54%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background-color: #ffffff;
+        }
+
+        .form-content {
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .form-header {
+            margin-bottom: 24px;
+        }
+
+        .form-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #002B49;
+        }
+
+        .form-header p {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        /* Alertas de error o desconexión */
+        .alert-error {
+            background-color: #fee2e2;
+            border-left: 4px solid #ef4444;
+            color: #991b1b;
+            padding: 9px 12px;
+            font-size: 12px;
+            border-radius: 4px;
+            margin-bottom: 18px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 6px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .input-group input:focus {
+            border-color: #005A9C;
+            box-shadow: 0 0 0 3px rgba(0, 90, 156, 0.15);
+        }
+
+        /* Botón estilo SABES */
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #FF7900 0%, #E65C00 100%);
+            border: none;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(230, 92, 0, 0.35);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            margin-top: 6px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(230, 92, 0, 0.45);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .form-footer {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .form-footer small {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+    <!-- Lado Izquierdo: Branding SABES & Botes -->
+    <aside class="panel-branding">
+        <div class="brand-header">
+            <h1>SABES</h1>
+            <p>Monitoreo Botes Inteligentes</p>
+        </div>
+
+        <div class="brand-logo-container">
+            <!-- Ícono SVG representativo de contenedor con reciclaje -->
+            <svg class="brand-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="46" fill="#005A9C" fill-opacity="0.35" stroke="#FF7900" stroke-width="2"/>
+                <path d="M35 34H65V30C65 28.3431 63.6569 27 62 27H38C36.3431 27 35 28.3431 35 30V34Z" fill="#FF7900"/>
+                <path d="M32 36H68V70C68 72.2091 66.2091 74 64 74H36C33.7909 74 32 72.2091 32 70V36Z" fill="#ffffff"/>
+                <!-- Símbolo de flechas de reciclaje en el bote -->
+                <path d="M50 44L54 48H51.5V55H48.5V48H46L50 44Z" fill="#002B49"/>
+                <path d="M57 52L59 56L54.5 58.5L53 56L56 54.3V52H57Z" fill="#002B49"/>
+                <path d="M43 52L44 54.3L47 56L45.5 58.5L41 56L43 52Z" fill="#002B49"/>
+            </svg>
+        </div>
+
+        <div class="brand-footer">
+            <span>Universidad SABES</span>
+        </div>
+    </aside>
+
+    <!-- Lado Derecho: Formulario de Conexión -->
+    <main class="panel-form">
+        <div class="form-content">
+            <header class="form-header">
+                <h2>Iniciar sesión</h2>
+                <p>Ingresa tus credenciales para continuar</p>
+            </header>
+
+            <!-- Mensaje de error si la autenticación falla o queda fuera de horario -->
+            <div th:if="${param.error}" class="alert-error">
+                Acceso denegado. Verifica tu usuario, contraseña u horario autorizado.
+            </div>
+
+            <form th:action="@{/login}" method="post">
+                <div class="input-group">
+                    <label for="username">Usuario</label>
+                    <input type="text" id="username" name="username" placeholder="ej. usuario@sabes.edu.mx" required autofocus>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-submit">INGRESAR AL SISTEMA</button>
+            </form>
+
+            <div class="form-footer">
+                <small>Acceso auditado y restringido a horarios autorizados</small>
+            </div>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>
